@@ -1,3 +1,4 @@
+<link rel="stylesheet" href="styles.css">
 <?php
 header('Access-Control-Allow-Origin: *');
 $superheroes = [
@@ -64,8 +65,44 @@ $superheroes = [
 ];
 ?>
 
-<ul>
-<?php foreach ($superheroes as $superhero): ?>
-  <li><?= $superhero['alias']; ?></li>
-<?php endforeach; ?>
-</ul>
+<!--This generates the result when the search box is empty -->
+
+<?php if (empty($_GET["heroName"])): ?>
+    <ul>
+        <?php foreach ($superheroes as $superhero): ?>
+        <li><?= $superhero['alias']; ?></li>
+        <?php endforeach;?>
+    </ul>
+    <?php endif; ?>
+
+
+<!-- This genrates the result when the hero is found -->
+
+<?php if (isset($_GET["heroName"])):
+    $name = htmlentities($_GET["heroName"]);
+    foreach ($superheroes as $superhero): 
+        if ($name == $superhero["alias"] || $name == $superhero["name"]):
+            $retVal = $superhero;
+        
+?>
+    <h4><?= $retVal["name"] ?></h4>
+    <h3>A.K.A. <?= $retVal["alias"] ?></h3>    
+    <p><?= $retVal["biography"]?></p>
+    <?php 
+        endif; 
+        endforeach; 
+        endif; 
+     ?>
+
+<!-- This genrates the result when no hero is found -->
+
+<?php 
+    if (!empty($_GET["heroName"])):
+        if (!in_array($_GET["heroName"], $superheroes)):
+?>
+    <h4>Superhero not found</h4>
+
+<?php 
+    endif; 
+    endif;
+?>

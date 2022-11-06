@@ -6,9 +6,16 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <script src="app.js"></script>
+    <link rel="stylesheet" href="styles.css">
 </head>
 <body>
     <h1>Avengers Character Search</h1>
-    <button>Search</button>
+    <form action="superheroes.php" method="get">
+        <input type="text"  id="heroText" name="heroName" >
+        <button type="submit">Search</button>
+    </form>
+    <p id="resultTitle">Result</p>
+    <hr>
+    <div id="result"></div>
 </body>
 </html>
