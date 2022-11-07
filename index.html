@@ -8,13 +8,16 @@
     <script src="app.js"></script>
     <link rel="stylesheet" href="styles.css">
 </head>
-<body>
+<header>
     <h1>Avengers Character Search</h1>
+</header>
+<body>   
+    <p>Search by Full Name or Alias</p>
     <form action="superheroes.php" method="get">
         <input type="text"  id="heroText" name="heroName" >
         <button type="submit">Search</button>
     </form>
-    <p id="resultTitle">Result</p>
+    <h2 id="resultTitle">Result</h2>
     <hr>
     <div id="result"></div>
 </body>

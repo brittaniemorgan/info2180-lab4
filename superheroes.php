@@ -73,36 +73,26 @@ $superheroes = [
         <li><?= $superhero['alias']; ?></li>
         <?php endforeach;?>
     </ul>
-    <?php endif; ?>
+    
 
 
-<!-- This genrates the result when the hero is found -->
+<!-- This generates the result when a name is entered -->
 
-<?php if (isset($_GET["heroName"])):
+<?php elseif (isset($_GET["heroName"])):
+    $retVal = null;
     $name = htmlentities($_GET["heroName"]);
     foreach ($superheroes as $superhero): 
-        if ($name == $superhero["alias"] || $name == $superhero["name"]):
+        if ($name == $superhero["alias"] || $name == $superhero["name"]):        
             $retVal = $superhero;
-        
 ?>
-    <h4><?= $retVal["name"] ?></h4>
-    <h3>A.K.A. <?= $retVal["alias"] ?></h3>    
-    <p><?= $retVal["biography"]?></p>
-    <?php 
-        endif; 
-        endforeach; 
-        endif; 
-     ?>
-
-<!-- This genrates the result when no hero is found -->
-
-<?php 
-    if (!empty($_GET["heroName"])):
-        if (!in_array($_GET["heroName"], $superheroes)):
-?>
-    <h4>Superhero not found</h4>
-
-<?php 
-    endif; 
-    endif;
-?>
+        <h4 id="hero"><?= $retVal["alias"] ?></h4>
+        <h3>A.K.A. <?= $retVal["name"] ?></h3>    
+        <p><?= $retVal["biography"]?></p>
+        <?php 
+        endif;
+        endforeach;
+        if ($retVal == null):
+        ?>
+            <p id="error">Superhero not found</p>
+<?php endif; ?>
+<?php endif; ?>

@@ -1,5 +1,4 @@
 window.onload = function(){
-    let heroText = document.getElementById("heroText");
     var searchBtn = document.querySelector("button");
     const req = new XMLHttpRequest();
     function defaultAction(){
@@ -14,8 +13,8 @@ window.onload = function(){
         req.send();
     }
 
-    function findHero(){
-        let url = "http://localhost/info2180-lab4/superheroes.php?heroName=" + heroText.value;
+    function findHero(heroText){
+        let url = "http://localhost/info2180-lab4/superheroes.php?heroName=" + heroText;
         req.onreadystatechange = function(){
             if (req.readyState === XMLHttpRequest.DONE){
                 if (req.status === 200){
@@ -29,13 +28,17 @@ window.onload = function(){
     function searchEvent(e){
         e.preventDefault();
         document.querySelector("div").innerHTML = "";
-        heroText.value = heroText.value.trim();
+        heroText.value = sanitize(heroText.value.trim());
         if (heroText.value == ""){
             defaultAction(e);
         }
         else{
-            findHero(heroText.innerHTML);
+            findHero(heroText.value);
         }
     }   
+
+    function sanitize(word){
+        return word.replace(/</g, "").replace(/>/g,"").replace(/&/,"").replace(/"/g);
+    }
     searchBtn.addEventListener("click", searchEvent)    
 };
